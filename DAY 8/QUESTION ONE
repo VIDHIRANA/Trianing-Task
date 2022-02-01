@@ -1,0 +1,209 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+// class for bricks of walls
+class BricksOfWall{
+  
+  string countryName = "India",  enteredName, selectedCity;
+
+  std::string blockInWall[10][10][90], user[10][10][90], dedication[10][10][90],  commentOnBrick[10][90][20] ;
+
+  string  nameOfCity[10] = {"1.Delhi","2.Pune", "3.Mumbai", "4.Agra", "5.Chandigarh", "6.Noida", "7.Banglore", "8.Kolkata", "9.Chennai", "10.Panaji"};
+
+  int cityNo,  wallNo, brick, noOfComment, password[10][10][90], passcode[10][10][90];
+
+  int displayCity(){
+    for (int noOfCity = 1; noOfCity <= 10; noOfCity++){
+
+      cout<< nameOfCity[noOfCity]<< endl;
+
+    }
+  }
+
+  //initialiing ever brick an empty value 
+  public: int initialValue(){
+
+    for (int noOfCity = 1; noOfCity <= 10; noOfCity++){
+      
+      if (noOfCity == cityNo){
+        
+        for ( int noOfWall = 1; noOfWall < 10; noOfWall++){
+
+          for (int brickNo = 1; brickNo < 90; brickNo++){
+
+            blockInWall[noOfCity][noOfWall][brickNo] = "" ;
+          }
+        }  
+      }
+    }
+    return 0;
+  }
+
+  // function to set brick to an owner
+  public: int allotedBrick(){
+      displayCity();
+    cout << " \n Enter the no of city you want your brick in \n";
+    cin >> cityNo;
+    for (int noOfCity = 1; noOfCity <= 10; noOfCity++){
+      
+      if (noOfCity == cityNo){
+        
+        for ( int noOfWall = 1; noOfWall < 10; noOfWall++){
+
+          for (int brickNo = 1; brickNo < 90; brickNo++){
+            
+            //checking if the brick already has a message if its not empty increase the counter and check for next brick 
+            if (blockInWall[noOfCity][noOfWall][brickNo] != "" ){
+                
+                brickNo++;
+              
+            }
+            // take the input for the messages 
+            else {
+              
+              cout << " \nEnter the name of UserName: \n";
+              cin >> user[noOfCity][noOfWall][brickNo];
+
+              cout << " \n enter the name of Person for whom the msg is for \n";
+              cin >> dedication[noOfCity][noOfWall][brickNo] ;
+
+              cout << "\n enter your message  \n";
+              cin >> blockInWall[noOfCity][noOfWall][brickNo];
+
+              //assigning a password which is randomly generated to the user  
+              password[noOfCity][noOfWall][brickNo] = rand() % 1000 + 9999;
+              cout<< "\nYour password is : \t"<< password [noOfCity][noOfWall][brickNo];
+              
+              
+            }
+
+          }
+
+        }
+
+      }
+      
+    }
+    
+    return 0;
+
+  }
+  // function to ad comment on message 
+  public: int commentOnblock() {
+
+      cout << "\n Enter the no of city, wall no and brick no yyou want to comment on\n";
+      cin >> cityNo>> wallNo>>brick;
+
+      for (int noOfCity = 1; noOfCity <= 10; noOfCity++){
+      
+        if (noOfCity == cityNo && blockInWall[noOfCity][wallNo][brick] != "" ){
+
+          for (noOfComment = 1; noOfComment <=20 ; noOfComment++){
+
+            if (commentOnBrick[wallNo][brick][noOfComment] != ""){
+
+              noOfComment++;
+
+            }
+            else {
+
+              cout<< "\n enter your Comment: \n";
+              cin >> commentOnBrick[wallNo][brick][noOfComment];
+
+            }
+
+          }
+
+        }
+        else{
+
+          cout<<" \n no comment can be done as there is no message on the brick \n";
+
+        }
+      
+      }
+
+    return 0;
+  }
+
+  // function to read message 
+  public: int readMessage(){
+
+    cout<< "\n enter the no city, wall no and brick no to read the message \n";
+    cin >> cityNo>> wallNo>>brick;
+    for (int noOfCity = 1; noOfCity <= 10; noOfCity++){
+      
+        if (noOfCity == cityNo && blockInWall[noOfCity][wallNo][brick] != "" ){
+          
+          cout<< "\nMESSAGE:\t"<<blockInWall[noOfCity][wallNo][brick]<<endl;
+          cout<< "\nCOMMENTS : \n";
+           
+           for (noOfComment = 1; noOfComment <=20 ; noOfComment++){
+
+             cout<< noOfComment <<". \t"<< commentOnBrick[wallNo][brick][noOfComment]<< endl;
+
+           }
+     
+        }
+        else {
+          cout<<" \n No message available \n";
+        }
+    }
+
+    return 0;
+  }
+  // function to edit the message on brick
+  public: int editMessage(){
+    
+    cout<< " \n enter the  no of city, wall no and brick no whose message you want to change \n";
+    cin >> cityNo>> wallNo>>brick;
+    for (int noOfCity = 1; noOfCity <= 10; noOfCity++){
+      
+          cout<< "\n Enter the Name of user and password respectivly \t";
+          cin >> enteredName >> passcode[noOfCity][wallNo][brick];
+
+          if ((enteredName == user[noOfCity][wallNo][brick] || enteredName == "ADMIN" )&& (passcode[noOfCity][wallNo][brick] == password[noOfCity][wallNo][brick] || passcode[noOfCity][wallNo][brick] == 123456) ){
+             
+             cout <<"\n enter the new message: \n";
+             cin >> blockInWall[noOfCity][wallNo][brick];  
+             cout<< " \n MESSAGE IS UPDATED \n";
+
+          }
+    }
+    return 0;
+  }
+ 
+};
+
+int main() {
+  int choice;
+   BricksOfWall info;
+   info.initialValue();
+  cout << "Enter your Choice \n 1 for dedicating your message \n 2 for Commenting on a message \n 3 for reading a message \n 4 for editing your existing message \n \n";
+   cin >> choice;
+
+   switch(choice){
+     case 1: 
+      info.allotedBrick();
+     break;
+
+     case 2: 
+      info.commentOnblock();
+     break;
+
+     case 3:
+      info.readMessage();
+     break ;
+
+     case 4:
+       info.editMessage();
+     break;
+
+     default:
+     break;
+     
+   }
+
+
+
+}

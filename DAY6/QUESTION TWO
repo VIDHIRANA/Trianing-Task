@@ -1,0 +1,78 @@
+import Foundation;
+// Inverter File
+class Inverter
+{ var power : Double
+     func powerRating(_ current : Double, _ voltage : Double) -> Double
+    {   
+      power = current * voltage;
+        return power;
+    }
+}
+//class for identifying solar inverter
+class SolarInverter : Inverter
+{
+    var current : Double
+    var voltage : Double
+    var panels : Int
+    var battery : Bool
+    var grid : Bool
+    init(_ current : Double, _ voltage : Double, _ panels : Int)
+    {
+        super.init(current : current)
+        
+        self.voltage = voltage
+        self.panels = panels
+    }
+    func getRatings() -> Double
+    {
+        return Inverter.powerRating(self.current,self.voltage);
+    }
+    func hasBattery(_ battery : Bool)
+    {
+        self.battery = battery
+    }
+    func isGridON(_ grid : Bool)
+    {
+        self.grid = grid
+    }
+}
+class NonSolarInverter : Inverter
+{
+    var current : Double
+    var voltage : Double
+    init(_ current : Double, _ voltage : Double)
+    {
+        super.init(current : current);
+        
+        self.voltage = voltage
+    }
+    func getRatings() -> Double
+    {
+        return Inverter.powerRating(self.current,self.voltage)
+    }
+}
+
+
+public func main(_ args : inout [String])
+    {
+        // Solar Inverters
+        let PCU : SolarInverter? = SolarInverter(4, 2.5, 3);
+        print(PCU!.getRatings());
+        PCU!.hasBattery(true);
+        PCU!.isGridON(false);
+        let GTI : SolarInverter? = SolarInverter(5.2, 3.6, 4);
+        print(GTI!.getRatings());
+        GTI!.hasBattery(false);
+        GTI!.isGridON(true);
+        let Regalia : SolarInverter? = SolarInverter(5.2, 3.6, 4);
+        print(Regalia!.getRatings());
+        // Non Solar Inverters
+        let Zelio : NonSolarInverter? = NonSolarInverter(5.2, 6.8);
+        print(Zelio!.getRatings());
+        let iCruze : NonSolarInverter? = NonSolarInverter(2.6, 4.5);
+        print(iCruze!.getRatings());
+    }
+
+
+var record : [String] = CommandLine.arguments;
+NonSolarInverter.main(&record);

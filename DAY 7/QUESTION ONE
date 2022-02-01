@@ -4,12 +4,12 @@ class Whatsapp
     static func main(_ args : inout [String])
     {
         //  Messaging messaging= new Messaging(false, false);
-        let sc : Scanner? = Scanner(java.lang.System.in);
-        let name : String = readLine()KALKINOTOPERATOR;
-        let number : Int = Int(readLine()KALKINOTOPERATOR)KALKINOTOPERATOR;
+        let sc : Scanner? = Scanner(lang.System.in);
+        let name : String = readLine() ;
+        let number : Int = Int(readLine() ) ;
         let message : String = "Hello";
-        let nameOfSecondPerson : String = readLine()KALKINOTOPERATOR;
-        let contactNumber : Int = Int(readLine()KALKINOTOPERATOR)KALKINOTOPERATOR;
+        let nameOfSecondPerson : String = readLine() ;
+        let contactNumber : Int = Int(readLine() ) ;
         let textmessage : Text? = Text(message);
         let time : Int = 5;
         let status : Status? = Status(time);

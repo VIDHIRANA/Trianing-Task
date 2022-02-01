@@ -1,0 +1,153 @@
+import Foundation;
+class Whatsapp
+{
+    static func main(_ args : inout [String])
+    {
+        //  Messaging messaging= new Messaging(false, false);
+        let sc : Scanner? = Scanner(java.lang.System.in);
+        let name : String = readLine()KALKINOTOPERATOR;
+        let number : Int = Int(readLine()KALKINOTOPERATOR)KALKINOTOPERATOR;
+        let message : String = "Hello";
+        let nameOfSecondPerson : String = readLine()KALKINOTOPERATOR;
+        let contactNumber : Int = Int(readLine()KALKINOTOPERATOR)KALKINOTOPERATOR;
+        let textmessage : Text? = Text(message);
+        let time : Int = 5;
+        let status : Status? = Status(time);
+        let chatWindow : ChatWindow? = ChatWindow(textmessage);
+        let contacts :  [Contact] =  [Contact]();
+        contacts.append(Contact(name, number, status, chatWindow));
+        contacts.append(Contact(nameOfSecondPerson, contactNumber, chatWindow));
+        // System.out.println(contacts.display());
+        for contact in contacts{
+contact!.display();
+        }
+    }
+}
+class Application
+{
+}
+interface Profile
+{
+    func display();
+}
+//  enum Contact{
+//  };
+class Contact implements Profile
+{
+    var name : String;
+    var contactnumber : Long?;
+    var status : Status?;
+    var chatWindow : ChatWindow?;
+    var profile : Profile?;
+    init(_ name : String, _ contactNumber : Long?, _ chatWindow : ChatWindow?)
+    {
+        self.name = name;
+        self.contactnumber = contactNumber;
+        self.chatWindow = chatWindow;
+    }
+    init(_ name : String, _ contactNumber : Long?, _ status : Status?, _ chatWindow : ChatWindow?)
+    {
+        self.name = name;
+        self.contactnumber = contactNumber;
+        self.status = status;
+        self.chatWindow = chatWindow;
+    }
+    func display()
+    {
+        print("Contact\'s Profile" + "\nName: " + self.name + "\nContact Number: " + String(self.contactnumber));
+        print(self.chatWindow!.text);
+    }
+}
+class Status
+{
+    var sendTime : Int;
+    init(_ sendTime : Int)
+    {
+        self.sendTime = sendTime;
+    }
+    func postStatus()
+    {
+    }
+    func viewStatus()
+    {
+        if (self.sendTime < 24)
+        {self.active();
+        }
+    }
+    func activeStatus()
+    {
+        if (self.sendTime < 24)
+        {
+            print("Active");
+            return;
+        }
+    }
+    func active()
+    {
+    }
+}
+class ChatWindow
+{
+    var chatid : String;
+    var messaging : Messaging?;
+    var text : Text?;
+    init(_ messaging : Messaging?)
+    {
+        self.messaging = messaging;
+    }
+}
+class Messaging
+{
+    var send : Bool;
+    var seen : Bool;
+    init(_ send : Bool, _ seen : Bool)
+    {
+        self.send = send;
+        self.seen = seen;
+    }
+    func getMessage()
+    {
+    }
+}
+class Text extends Messaging
+{
+    var text : String = "";
+    var send : Bool;
+    var seen : Bool;
+    init(_ text : String)
+    {
+        super(false,false);
+        self.text = text;
+    }
+}
+class Audio extends Messaging
+{
+    super(false,false);
+}
+class Video extends Messaging
+{
+    super(false,false);
+}
+class TextStatus extends Status
+{
+    var textString : String;
+    var sendTime : Int;
+    init(_ textString : String, _ sendTime : Int)
+    {
+        super(sendTime);
+        self.textString = textString;
+    }
+}
+class ImageStatus extends Status
+{
+    var url : String;
+    var sendTime : Int;
+    init(_ url : String, _ sendTime : Int)
+    {
+        super(sendTime);
+        self.url = url;
+    }
+}
+
+var record : [String] = CommandLine.arguments;
+Whatsapp.main(&record);
